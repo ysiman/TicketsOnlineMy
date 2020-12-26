@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="germes-presentation:war">
+    <output-path>$PROJECT_DIR$/germes-presentation/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>germes-presentation</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="germes-presentation-0.0.9.war">
+      <element id="artifact" artifact-name="germes-presentation:war exploded" />
+    </root>
+  </artifact>
+</component>

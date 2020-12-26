@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Maven: org.it-simulator:germes-service:0.0.9">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/it-simulator/germes-service/0.0.9/germes-service-0.0.9.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/germes-service/germes-service-0.0.9-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/it-simulator/germes-service/0.0.9/germes-service-0.0.9-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/germes-service/germes-service-0.0.9-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/it-simulator/germes-service/0.0.9/germes-service-0.0.9-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

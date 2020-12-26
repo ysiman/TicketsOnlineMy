@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="germes-service:war">
+    <output-path>$PROJECT_DIR$/germes-service/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>germes-service</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="germesService.war">
+      <element id="artifact" artifact-name="germes-service:war exploded" />
+    </root>
+  </artifact>
+</component>
