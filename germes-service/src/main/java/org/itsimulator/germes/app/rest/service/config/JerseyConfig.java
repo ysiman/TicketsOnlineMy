@@ -12,7 +12,7 @@ import org.glassfish.jersey.server.ResourceConfig;
  */
 public class JerseyConfig extends ResourceConfig {
     public JerseyConfig() {
-        packages("org.itsimulator.germes.app.rest");        
+        packages("org.itsimulator.germes.app.rest");
     }
 }
 
