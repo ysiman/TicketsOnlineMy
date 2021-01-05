@@ -23,11 +23,14 @@ public class HibernateCityRepository implements CityRepository {
 	@Override
 	public void save(City city) {
 		System.out.println("#saveInHib");
-		try (Session session = sessionFactory.openSession()) {
+		/*try (Session session = sessionFactory.openSession()) {
 			city.prePersist();
 			if (city.getStations() != null) {
 				city.getStations().forEach(AbstractEntity::prePersist);
 			}
+			session.saveOrUpdate(city);
+		}*/
+		try (Session session = sessionFactory.openSession()) {
 			session.saveOrUpdate(city);
 		}
 	}
