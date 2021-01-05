@@ -11,6 +11,7 @@ import org.itsimulator.germes.app.model.entity.geography.Station;
 import org.itsimulator.germes.app.model.search.criteria.StationCriteria;
 import org.itsimulator.germes.app.model.search.criteria.range.RangeCriteria;
 import org.itsimulator.germes.app.persistence.repository.CityRepository;
+import org.itsimulator.germes.app.persistence.repository.StationRepository;
 import org.itsimulator.germes.app.service.GeographicService;
 import org.itsimulator.germes.app.persistence.repository.inmemory.InMemoryCityRepository;
 
@@ -24,14 +25,23 @@ import javax.inject.Inject;
  */
 public class GeographicServiceImpl implements GeographicService {
 	private final CityRepository cityRepository;
+	private final StationRepository stationRepository;
 
 	/*public GeographicServiceImpl() {
 		cityRepository = new InMemoryCityRepository();
-	}*/
+	}
 	@Inject
 	public GeographicServiceImpl(CityRepository cityRepository) {
 		this.cityRepository = cityRepository;
+	}*/
+
+	@Inject
+	public GeographicServiceImpl(CityRepository cityRepository,
+								 StationRepository stationRepository) {
+		this.cityRepository = cityRepository;
+		this.stationRepository = stationRepository;
 	}
+
 	@Override
 	public List<City> findCities() {
 		return cityRepository.findAll();

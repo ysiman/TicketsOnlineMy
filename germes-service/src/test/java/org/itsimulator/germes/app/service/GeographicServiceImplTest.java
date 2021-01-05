@@ -9,7 +9,10 @@ import org.itsimulator.germes.app.model.entity.transport.TransportType;
 import org.itsimulator.germes.app.model.search.criteria.StationCriteria;
 import org.itsimulator.germes.app.model.search.criteria.range.RangeCriteria;
 import org.itsimulator.germes.app.persistence.hibernate.SessionFactoryBuilder;
+import org.itsimulator.germes.app.persistence.repository.CityRepository;
+import org.itsimulator.germes.app.persistence.repository.StationRepository;
 import org.itsimulator.germes.app.persistence.repository.hibernate.HibernateCityRepository;
+import org.itsimulator.germes.app.persistence.repository.hibernate.HibernateStationRepository;
 import org.itsimulator.germes.app.persistence.repository.inmemory.InMemoryCityRepository;
 import org.itsimulator.germes.app.service.impl.GeographicServiceImpl;
 import org.junit.Before;
@@ -34,7 +37,12 @@ public class GeographicServiceImplTest {
 
 	@Before
 	public void setup() {
-		service = new GeographicServiceImpl(new HibernateCityRepository(new SessionFactoryBuilder()));
+
+		//service = new GeographicServiceImpl(new HibernateCityRepository(new SessionFactoryBuilder()));
+		SessionFactoryBuilder builder = new SessionFactoryBuilder();
+		CityRepository repository = new HibernateCityRepository(builder);
+		StationRepository stationRepository = new HibernateStationRepository(builder);
+		service = new GeographicServiceImpl(repository, stationRepository);
 	}
 	/*
 	@Test
