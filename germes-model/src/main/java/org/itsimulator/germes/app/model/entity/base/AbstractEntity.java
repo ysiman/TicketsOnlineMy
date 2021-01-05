@@ -2,39 +2,54 @@ package org.itsimulator.germes.app.model.entity.base;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+
 import org.itsimulator.germes.app.model.entity.person.Account;
 
 /**
  * Base class for all business entities
+ *
  * @author Morenets
  *
  */
+@MappedSuperclass
 public abstract class AbstractEntity {
 	/**
 	 * Unique entity identifier
 	 */
 	private int id;
-	
+
 	/**
 	 * Timestamp of entity creation
 	 */
 	private LocalDateTime createdAt;
-	
+
 	/**
 	 * Timestamp of entity last modification
 	 */
 	private LocalDateTime modifiedAt;
-	
+
 	/**
 	 * Person who created specific entity
 	 */
 	private Account createdBy;
-	
+
 	/**
-	 * Last person who modified entity 
+	 * Last person who modified entity
 	 */
 	private Account modifiedBy;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
 	public int getId() {
 		return id;
 	}
@@ -43,6 +58,7 @@ public abstract class AbstractEntity {
 		this.id = id;
 	}
 
+	@Column(name = "CREATED_AT", nullable = false, updatable = false)
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
@@ -51,6 +67,7 @@ public abstract class AbstractEntity {
 		this.createdAt = createdAt;
 	}
 
+	@Column(name = "MODIFIED_AT", insertable = false)
 	public LocalDateTime getModifiedAt() {
 		return modifiedAt;
 	}
@@ -59,6 +76,8 @@ public abstract class AbstractEntity {
 		this.modifiedAt = modifiedAt;
 	}
 
+	@OneToOne(fetch = FetchType.LAZY, cascade = {})
+	@JoinColumn(name = "CREATED_BY", updatable = false)
 	public Account getCreatedBy() {
 		return createdBy;
 	}
@@ -67,12 +86,21 @@ public abstract class AbstractEntity {
 		this.createdBy = createdBy;
 	}
 
+	@OneToOne(fetch = FetchType.LAZY, cascade = {})
+	@JoinColumn(name = "MODIFIED_BY", insertable = false)
 	public Account getModifiedBy() {
 		return modifiedBy;
 	}
 
 	public void setModifiedBy(Account modifiedBy) {
 		this.modifiedBy = modifiedBy;
+	}
+
+	@PrePersist
+	public void prePersist() {
+		if (getId() == 0) {
+			setCreatedAt(LocalDateTime.now());
+		}
 	}
 
 	@Override
@@ -96,5 +124,5 @@ public abstract class AbstractEntity {
 			return false;
 		return true;
 	}
-	
+
 }
