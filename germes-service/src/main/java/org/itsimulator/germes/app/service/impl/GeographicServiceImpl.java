@@ -49,7 +49,7 @@ public class GeographicServiceImpl implements GeographicService {
 
 	@Override
 	public void saveCity(City city) {
-		cityRepository.save(city); 		System.out.println("#save1");
+		cityRepository.save(city);
 	}
 
 	@Override

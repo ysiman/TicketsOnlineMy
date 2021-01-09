@@ -6,13 +6,16 @@ import javax.inject.Inject;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.itsimulator.germes.app.model.entity.base.AbstractEntity;
 import org.itsimulator.germes.app.model.entity.geography.City;
 import org.itsimulator.germes.app.persistence.hibernate.SessionFactoryBuilder;
 import org.itsimulator.germes.app.persistence.repository.CityRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class HibernateCityRepository implements CityRepository {
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(HibernateCityRepository.class);
 	private final SessionFactory sessionFactory;
 
 	@Inject
@@ -22,16 +25,16 @@ public class HibernateCityRepository implements CityRepository {
 
 	@Override
 	public void save(City city) {
-		System.out.println("#saveInHib");
-		/*try (Session session = sessionFactory.openSession()) {
-			city.prePersist();
-			if (city.getStations() != null) {
-				city.getStations().forEach(AbstractEntity::prePersist);
-			}
-			session.saveOrUpdate(city);
-		}*/
+		Transaction tx = null;
 		try (Session session = sessionFactory.openSession()) {
+			tx = session.beginTransaction();
 			session.saveOrUpdate(city);
+			tx.commit();
+		} catch (Exception ex) {
+			LOGGER.error(ex.getMessage(), ex);
+			if (tx != null) {
+				tx.rollback();
+			}
 		}
 	}
 

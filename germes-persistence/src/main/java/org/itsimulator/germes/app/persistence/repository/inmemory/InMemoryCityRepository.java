@@ -41,7 +41,6 @@ public class InMemoryCityRepository implements CityRepository {
 	
 	@Override
 	public void save(final City city) {
-		System.out.println("#saveInMemory");
 		if (!cities.contains(city)) {
 			city.setId(++counter);
 			cities.add(city);
