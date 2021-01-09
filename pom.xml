@@ -20,6 +20,7 @@
 		<mockitoCore.version>2.18.0</mockitoCore.version>
 		<jmockit.version>1.21</jmockit.version>
 		<hibernate.version>5.1.0.Final</hibernate.version>
+		<el.version>2.2.4</el.version>
 	</properties>
 
 	<dependencies>

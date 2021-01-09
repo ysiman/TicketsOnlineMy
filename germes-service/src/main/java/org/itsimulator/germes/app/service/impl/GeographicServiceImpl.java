@@ -6,6 +6,12 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+
+import org.itsimulator.germes.app.infra.exception.flow.ValidationException;
 import org.itsimulator.germes.app.model.entity.geography.City;
 import org.itsimulator.germes.app.model.entity.geography.Station;
 import org.itsimulator.germes.app.model.search.criteria.StationCriteria;
@@ -26,6 +32,7 @@ import javax.inject.Inject;
 public class GeographicServiceImpl implements GeographicService {
 	private final CityRepository cityRepository;
 	private final StationRepository stationRepository;
+	private final Validator validator;
 
 	/*public GeographicServiceImpl() {
 		cityRepository = new InMemoryCityRepository();
@@ -40,6 +47,9 @@ public class GeographicServiceImpl implements GeographicService {
 								 StationRepository stationRepository) {
 		this.cityRepository = cityRepository;
 		this.stationRepository = stationRepository;
+
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		validator = factory.getValidator();
 	}
 
 	@Override
@@ -49,6 +59,11 @@ public class GeographicServiceImpl implements GeographicService {
 
 	@Override
 	public void saveCity(City city) {
+		Set<ConstraintViolation<City>> constraintViolations = validator.validate(city);
+		if(!constraintViolations.isEmpty()) {
+			throw new ValidationException("City validation failure", constraintViolations);
+		}
+
 		cityRepository.save(city);
 	}
 
