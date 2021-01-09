@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import org.itsimulator.germes.app.infra.exception.flow.ValidationException;
 import org.itsimulator.germes.app.model.entity.geography.City;
 import org.itsimulator.germes.app.model.entity.geography.Station;
 import org.itsimulator.germes.app.model.entity.transport.TransportType;
@@ -364,5 +365,47 @@ public class GeographicServiceImplTest {
 		city.setRegion("Odessa");
 
 		return city;
+	}
+
+	@Test
+	public void t13() {
+		try {
+			City city = new City("Nikolaev");
+			city.setDistrict("Nikolaev");
+			city.setRegion("Nikolaev");
+			service.saveCity(city);
+
+			fail("City name validation failed");
+		} catch (ValidationException ex) {
+			assertTrue(ex.getMessage().contains("name:may not be null"));
+		}
+	}
+
+	@Test
+	public void t14() {
+		try {
+			City city = new City("N");
+			city.setDistrict("Nikolaev");
+			city.setRegion("Nikolaev");
+			service.saveCity(city);
+
+			fail("City name validation failed");
+		} catch (ValidationException ex) {
+			assertTrue(ex.getMessage().contains("name:size must be between 2 and 32"));
+		}
+	}
+
+	@Test
+	public void t15() {
+		try {
+			City city = new City("Nikolaev");
+			city.setDistrict("Nikolaev");
+			city.setRegion("Nikolaev");
+			service.saveCity(city);
+
+			fail("City name validation failed");
+		} catch (ValidationException ex) {
+			assertTrue(ex.getMessage().contains("name:size must be between 2 and 32"));
+		}
 	}
 }
