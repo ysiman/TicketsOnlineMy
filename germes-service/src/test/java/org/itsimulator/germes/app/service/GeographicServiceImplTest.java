@@ -408,4 +408,5 @@ public class GeographicServiceImplTest {
 			assertTrue(ex.getMessage().contains("name:size must be between 2 and 32"));
 		}
 	}
+
 }
